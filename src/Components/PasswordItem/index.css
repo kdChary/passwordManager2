@@ -1,0 +1,51 @@
+.saved-password-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: solid 1px #94a3b8;
+  border-radius: 7px;
+  width: 100%;
+  padding: 11px 7px;
+}
+
+.user-details {
+  display: flex;
+  /* justify-content; */
+  align-items: center;
+  width: 95%;
+}
+
+.initial-card {
+  background-color: #b91c1c;
+  width: 34px;
+  height: 34px;
+  font-size: 19px;
+  margin-right: 17px;
+  border-radius: 19px;
+  color: #ffffff;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.delete-btn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 34px;
+}
+.delete-icon {
+  width: 21px;
+}
+.password-item-details {
+  width: 50%;
+}
+.password-text {
+  font-size: 11px;
+  color: #ffffff;
+  margin: 3px;
+}
+.password-mask {
+  width: 91px;
+}
