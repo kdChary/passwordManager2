@@ -4,6 +4,16 @@ import {v4 as uidV4} from 'uuid'
 import './index.css'
 import PasswordItem from '../PasswordItem'
 
+const bgColorsForUserLogo = [
+  'bg-color1',
+  'bg-color2',
+  'bg-color3',
+  'bg-color4',
+  'bg-color5',
+  'bg-color6',
+  'bg-color7',
+]
+
 class PasswordManager extends Component {
   state = {
     showPassword: false,
@@ -21,11 +31,15 @@ class PasswordManager extends Component {
       inputWebSite,
       passwordsList,
     } = this.state
+    const colorIndex = Math.ceil(Math.random() * bgColorsForUserLogo.length - 1)
+    const initialBgColor = bgColorsForUserLogo[colorIndex]
+
     const newPasswordsList = {
       id: uidV4(),
       website: inputWebSite,
       userName: inputUserName,
       password: inputPassword,
+      initialBgColor,
     }
 
     this.setState({
@@ -63,14 +77,20 @@ class PasswordManager extends Component {
   searchPasswords = event => {
     const {passwordsList} = this.state
     const sortResults = passwordsList.filter(password =>
-      password.includes(event.target.value),
+      password.website.toLowerCase().includes(event.target.value.toLowerCase()),
     )
 
     this.setState({passwordsList: sortResults})
   }
 
   renderForm = () => {
-    const {inputWebSite, inputUserName, inputPassword} = this.state
+    const {
+      inputWebSite,
+      inputUserName,
+      inputPassword,
+      passwordsList,
+    } = this.state
+    const printError = passwordsList.includes(undefined)
     const webImgUrl =
       'https://assets.ccbp.in/frontend/react-js/password-manager-website-img.png'
     const userImgUrl =
@@ -80,7 +100,8 @@ class PasswordManager extends Component {
 
     return (
       <form onSubmit={this.onSubmitForm} className="details-form">
-        <p className="form-title">Add New Password</p>
+        <h2 className="form-title">Add New Password</h2>
+        {printError && <p className="error-msg">*please Enter valid details</p>}
         <div className="input-card">
           <div className="input-image-card">
             <img src={webImgUrl} alt="website" className="input-image" />
@@ -112,7 +133,7 @@ class PasswordManager extends Component {
             <img src={lockImgUrl} alt="password" className="input-image" />
           </div>
           <input
-            type="text"
+            type="password"
             placeholder="Enter Password"
             className="input"
             value={inputPassword}
@@ -129,7 +150,6 @@ class PasswordManager extends Component {
 
   renderSavedPasswordsList = () => {
     const {passwordsList, showPassword} = this.state
-
     return (
       <ul className="saved-passwords-list">
         {passwordsList.map(eachList => (
@@ -168,12 +188,14 @@ class PasswordManager extends Component {
           </div>
           <div className="saved-passwords-section">
             <div className="password-controls">
-              <p className="saved-passwords-section-title">
-                Your Passwords{' '}
-                <span className="passwords-count">{totalSavedPasswords}</span>
-              </p>
+              <div className="password-count-card">
+                <h2 className="saved-passwords-section-title">
+                  Your Passwords
+                </h2>
+                <p className="passwords-count">{totalSavedPasswords}</p>
+              </div>
               <div className="passwords-filter-card">
-                <div className="search-image-card">
+                <div className="input-image-card">
                   <img
                     src="https://assets.ccbp.in/frontend/react-js/password-manager-search-img.png"
                     alt="search"
@@ -181,7 +203,7 @@ class PasswordManager extends Component {
                   />
                 </div>
                 <input
-                  type="text"
+                  type="search"
                   placeholder="Search"
                   className="input"
                   onChange={this.searchPasswords}
@@ -192,11 +214,14 @@ class PasswordManager extends Component {
             <hr className="line" />
             <div className="check-box-card">
               <input
+                id="checkbox"
                 type="checkbox"
                 onChange={this.toggleShowPassword}
                 className="checkbox"
               />
-              <p className="checkbox-label">Show Passwords</p>
+              <label className="checkbox-label" htmlFor="checkbox">
+                Show passwords
+              </label>
             </div>
             <div className="saved-passwords">
               {totalSavedPasswords === 0 && (
@@ -206,7 +231,7 @@ class PasswordManager extends Component {
                     alt="no passwords"
                     className="empty-passwords-image"
                   />
-                  <h2 className="empty-password-msg">No Passwords</h2>
+                  <p className="empty-password-msg">No Passwords</p>
                 </>
               )}
               {this.renderSavedPasswordsList()}

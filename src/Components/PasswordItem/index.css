@@ -6,6 +6,12 @@
   border-radius: 7px;
   width: 100%;
   padding: 11px 7px;
+  margin: 7px 5px;
+}
+@media (min-width: 768px) {
+  .saved-password-item {
+    width: 23%;
+  }
 }
 
 .user-details {
@@ -16,7 +22,6 @@
 }
 
 .initial-card {
-  background-color: #b91c1c;
   width: 34px;
   height: 34px;
   font-size: 19px;
@@ -48,4 +53,26 @@
 }
 .password-mask {
   width: 91px;
+}
+
+.bg-color1 {
+  background-color: #0b69ff;
+}
+.bg-color2 {
+  background-color: #f59e0b;
+}
+.bg-color3 {
+  background-color: #10b981;
+}
+.bg-color4 {
+  background-color: #b91c1c;
+}
+.bg-color5 {
+  background-color: #f97316;
+}
+.bg-color6 {
+  background-color: #14b8a6;
+}
+.bg-color7 {
+  background-color: #0ea5e9;
 }

@@ -2,8 +2,8 @@ import './index.css'
 
 const PasswordItem = props => {
   const {passwordDetails, removePassword, showPassword} = props
-  const {id, userName, website, password} = passwordDetails
-  const initial = userName[0].toUpperCase()
+  const {id, userName, website, password, initialBgColor} = passwordDetails
+  const initial = userName ? userName[0].toUpperCase() : ''
 
   const deletePassword = () => {
     removePassword(id)
@@ -11,7 +11,7 @@ const PasswordItem = props => {
   return (
     <li className="saved-password-item">
       <div className="user-details">
-        <div className="initial-card">{initial}</div>
+        <div className={`initial-card ${initialBgColor}`}>{initial}</div>
         <div className="password-item-details">
           <p className="password-text">{website}</p>
           <p className="password-text">{userName}</p>
@@ -26,7 +26,12 @@ const PasswordItem = props => {
           )}
         </div>
       </div>
-      <button type="button" className="delete-btn" onClick={deletePassword}>
+      <button
+        type="button"
+        className="delete-btn"
+        onClick={deletePassword}
+        data-testid="delete"
+      >
         <img
           src="https://assets.ccbp.in/frontend/react-js/password-manager-delete-img.png"
           alt="delete"
