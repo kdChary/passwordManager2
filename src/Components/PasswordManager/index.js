@@ -14,6 +14,8 @@ const bgColorsForUserLogo = [
   'bg-color7',
 ]
 
+console.log('KSD')
+
 class PasswordManager extends Component {
   state = {
     showPassword: false,
